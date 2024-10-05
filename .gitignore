@@ -54,6 +54,8 @@ sim/results/
 *.log
 *.twr
 *.xmsgs
+*.cr.mti
+*.mpf
 
 # Ignore FPGA constraints files (can be uncommented if necessary)
 # *.ucf

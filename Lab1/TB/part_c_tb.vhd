@@ -12,11 +12,11 @@ architecture sim_c of part_c_tb is
 	signal cin : std_logic := '0'; 
 	
 	signal output : std_logic_vector(7 downto 0) := (others => 'U');
-	signal cout : std_logic := '0'; 
+	signal cout : std_logic_vector(0 downto 0) := (others => 'U'); 
 	
 begin
 	
-	iPart_c : entity work.Part(rtl_c) port map(
+	iPart_c : entity work.Part(behavioral_c) port map(
 		A,
 		B,
 		sel,

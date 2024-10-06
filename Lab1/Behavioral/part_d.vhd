@@ -4,6 +4,7 @@ use IEEE.numeric_std.all;
 
 
 architecture behavioral_d of Part is
+    -- * Signals for saving the result of each operation and pass it to the mux.
     signal right_shift : std_logic_vector(7 downto 0);
     signal right_rotate : std_logic_vector(7 downto 0);
     signal right_rotate_carry : std_logic_vector(7 downto 0); 
@@ -16,6 +17,7 @@ begin
     arithmetic_shift_right <= A(7) & A(7 downto 1); -- ? no carry 
     cout <= '0' when sel = "11" else A(0); 
 
+    -- * Instantiate the mux.
     iMux2 : entity work.Mux2(rtl) 
     generic map(
         size => 8

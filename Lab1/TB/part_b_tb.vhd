@@ -6,16 +6,18 @@ end entity;
 
 architecture sim_b of part_b_tb is
 
-	signal A : std_logic_vector(7 downto 0) := x"F0";
-	signal B : std_logic_vector(7 downto 0) := x"B0";
-	signal sel : std_logic_vector(1 downto 0) := "00";
-	signal cin : std_logic := '0'; 
+	-- * Signals for testing Part_B with initial values.
+	signal A : std_logic_vector(7 downto 0) := x"F0"; -- * First input.
+	signal B : std_logic_vector(7 downto 0) := x"B0"; -- * Second input.
+	signal sel : std_logic_vector(1 downto 0) := "00"; -- * Selection bits.
+	signal cin : std_logic := '0'; -- * Carry in.
 	
-	signal output : std_logic_vector(7 downto 0) := (others => 'U');
-	signal cout : std_logic := 'U'; 
+	signal output : std_logic_vector(7 downto 0) := (others => 'U');-- * Output.
+	signal cout : std_logic := 'U'; -- * Carry out.
 	
 begin
 	
+	-- * Instantiate Part_B architecture.
 	iPart_b : entity work.Part(behavioral_b) 
 	generic map(
         selection_size => 2
@@ -31,16 +33,30 @@ begin
 	
 	process is
 	begin
-	
-		wait for 30 ns;
+
+	-- * ----------------------------------- Part B --------------------------------------------
+		-- ? Output = A xor B , Cout = 0
+		A <= X"F0";
+		B <= X"B0";
+		cin <= '0';
+		sel <= "00";
+		wait for 20 ns;
+		-- * ---------------------------------------------------
+		-- ? Output = A nand B , Cout = 0
+		B <= X"0B";
 		sel <= "01";
-		B <= x"0B";
-		wait for 30 ns;
+		wait for 20 ns;
+		-- * ---------------------------------------------------
+		-- ? Output = A or B , Cout = 0
+		B <= X"B0";
 		sel <= "10";
-		B <= x"B0";
-		wait for 30 ns;
+		wait for 20 ns;
+		-- * ---------------------------------------------------
+		-- ? Output = Not A , Cout = 0
 		sel <= "11";
 		wait;
+		-- * ---------------------------------------------------		
+	-- * ---------------------------------------------------------------------------------------
 		
 	end process;
 

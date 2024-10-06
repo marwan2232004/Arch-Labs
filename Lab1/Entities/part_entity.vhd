@@ -1,6 +1,10 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
+-- * Entity for single part of the ALU.
+-- ! The ALU is also considered a part with a selection size of 4.
+-- ! The first 2 bits of the selection vector are used to select the part.
+-- ! The last 2 bits are used to select the operation of each part.
 entity Part is
 	generic(
 		selection_size : integer

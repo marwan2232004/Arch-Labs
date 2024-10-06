@@ -5,14 +5,14 @@ entity part_d_tb is
 end entity;
 
 architecture sim_d of part_d_tb is
-
-	signal A : std_logic_vector(7 downto 0) := x"F0";
-	signal B : std_logic_vector(7 downto 0) := x"00";
-	signal sel : std_logic_vector(1 downto 0) := "00";
-	signal cin : std_logic := '0'; 
+	-- * Signals for testing Part_D with initial values.
+	signal A : std_logic_vector(7 downto 0) := x"F0"; -- * First input.
+	signal B : std_logic_vector(7 downto 0) := x"00"; -- * Second input.
+	signal sel : std_logic_vector(1 downto 0) := "00";-- * Selection bits.
+	signal cin : std_logic := '0'; -- * Carry in.
 	
-	signal output : std_logic_vector(7 downto 0) := (others => 'U');
-	signal cout : std_logic := 'U'; 
+	signal output : std_logic_vector(7 downto 0) := (others => 'U');-- * Output.
+	signal cout : std_logic := 'U'; -- * Carry out.
 	
 begin
 	
@@ -32,16 +32,30 @@ begin
 	process is
 	begin
 	
-		wait for 30 ns;
+	-- * ----------------------------------- Part D --------------------------------------------
+		-- ? Output = Logic shift right A , Cout = shifted bit
+		sel <= "00";
+		wait for 20 ns;
+		-- * ---------------------------------------------------
+		-- ? Output = Rotate right A , Cout = rotated bit
 		sel <= "01";
-		wait for 30 ns;
+		wait for 20 ns;
+		-- * ---------------------------------------------------
+		-- ? Output = Rotate right A with carry in , Cout = rotated bit , cin = 0
+		cin <= '0';
 		sel <= "10";
-		wait for 30 ns;
+		wait for 20 ns;
+		-- * ---------------------------------------------------
+		-- ? Output = Arithmetic shift right A
 		sel <= "11";
-		wait for 30 ns;
-		sel <= "10";
+		wait for 20 ns;
+		-- * ---------------------------------------------------
+		-- ? Output = Rotate right A with carry in , Cout = rotated bit , cin = 1
 		cin <= '1';
+		sel <= "10";
 		wait;
+		-- * ---------------------------------------------------
+	-- * ---------------------------------------------------------------------------------------
 		
 	end process;
 

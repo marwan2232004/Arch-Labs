@@ -12,7 +12,7 @@ architecture sim_b of part_b_tb is
 	signal cin : std_logic := '0'; 
 	
 	signal output : std_logic_vector(7 downto 0) := (others => 'U');
-	signal cout : std_logic_vector(0 downto 0) := (others => 'U'); 
+	signal cout : std_logic := 'U'; 
 	
 begin
 	

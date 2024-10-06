@@ -12,7 +12,7 @@ begin
 	A_nand_B <= A NAND B;
 	A_or_B <= A OR B;
 	not_A <= NOT A;
-	cout <= "0";
+	cout <= '0';
 	
 	iMux2 : entity work.Mux2(rtl) 
 	generic map(

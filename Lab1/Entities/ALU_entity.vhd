@@ -8,6 +8,6 @@ entity ALU is
         sel : in std_logic_vector(3 downto 0);
         cin : in std_logic;
         output : out std_logic_vector(7 downto 0);
-        cout : out std_logic_vector(0 downto 0)
+        cout : out std_logic
     );    
 end entity;

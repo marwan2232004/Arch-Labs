@@ -14,7 +14,7 @@ begin
     right_rotate <= A(0) & A(7 downto 1); -- ?  carry A(0)
     right_rotate_carry <= cin & A(7 downto 1); -- ? carry A(0)
     arithmetic_shift_right <= A(7) & A(7 downto 1); -- ? no carry 
-    cout(0) <= '0' when sel = "11" else A(0); 
+    cout <= '0' when sel = "11" else A(0); 
 
     iMux2 : entity work.Mux2(rtl) 
     generic map(

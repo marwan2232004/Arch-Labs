@@ -4,7 +4,7 @@ use ieee.std_logic_1164.all;
 entity ALU_tb is
 end entity;
 
-architecture sim of ALU_tb is
+architecture sim_alu of ALU_tb is
 
 	signal A : std_logic_vector(7 downto 0) := x"F0";
 	signal B : std_logic_vector(7 downto 0) := x"B0";
@@ -12,11 +12,11 @@ architecture sim of ALU_tb is
 	signal cin : std_logic := '0'; 
 	
 	signal output : std_logic_vector(7 downto 0) := (others => 'U');
-	signal cout : std_logic_vector(0 downto 0) := (others => 'U'); 
+	signal cout : std_logic := 'U'; 
 	
 begin
 	
-	ialu : entity work.ALU(behavioral) port map(
+	ialu : entity work.ALU(behavioral_alu) port map(
 		A,
 		B,
 		sel,

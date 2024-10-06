@@ -10,7 +10,7 @@ begin
 	left_shift <= A(6 downto 0) & '0';
 	left_rotate <= A(6 downto 0) & A(7);
 	left_rotate_carry <= A(6 downto 0) & cin;
-	cout(0) <= '0' when sel = "11" else A(7);
+	cout <= '0' when sel = "11" else A(7);
 	
 	iMux2 : entity work.Mux2(rtl) 
 	generic map(

@@ -1,7 +1,7 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
-entity mux2 is
+entity Mux2 is
 generic(
 	size : integer
 );
@@ -16,7 +16,7 @@ port(
 
 end entity;
 
-architecture rtl of mux2 is
+architecture rtl of Mux2 is
 begin
 
 	process(in1, in2, in3, in4, sel) is

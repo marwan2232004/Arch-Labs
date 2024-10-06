@@ -1,7 +1,7 @@
 library ieee;
 use ieee.std_logic_1164.all;
     
-architecture behavioral_alu of ALU is
+architecture behavioral_alu of Part is
 
     -- * Signals for the output of each part. bit 8 is the carry out and the rest are the output
     signal part_a_out : std_logic_vector(8 downto 0); 
@@ -13,7 +13,11 @@ architecture behavioral_alu of ALU is
 
 begin
 
-	iPart_b : entity work.Part(behavioral_b) port map(
+	iPart_b : entity work.Part(behavioral_b)
+    generic map(
+        selection_size => 2
+    )
+    port map(
 		A,
 		B,
 		sel(1 downto 0),
@@ -22,7 +26,11 @@ begin
 		part_b_out(8)
 	);	
 
-    iPart_c : entity work.Part(behavioral_c) port map(
+    iPart_c : entity work.Part(behavioral_c)
+    generic map(
+        selection_size => 2
+    )
+    port map(
 		A,
 		B,
 		sel(1 downto 0),
@@ -31,7 +39,11 @@ begin
 		part_c_out(8)
 	);
 
-    iPart_d : entity work.Part(behavioral_d) port map(
+    iPart_d : entity work.Part(behavioral_d)
+    generic map(
+        selection_size => 2
+    )
+    port map(
 		A,
 		B,
 		sel(1 downto 0),

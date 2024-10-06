@@ -16,7 +16,11 @@ architecture sim_alu of ALU_tb is
 	
 begin
 	
-	ialu : entity work.ALU(behavioral_alu) port map(
+	ialu : entity work.Part(behavioral_alu)
+	generic map(
+        selection_size => 4
+    ) 
+	port map(
 		A,
 		B,
 		sel,

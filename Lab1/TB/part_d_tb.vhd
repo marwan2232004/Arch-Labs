@@ -16,7 +16,11 @@ architecture sim_d of part_d_tb is
 	
 begin
 	
-	iPart_d : entity work.Part(behavioral_d) port map(
+	iPart_d : entity work.Part(behavioral_d)
+	generic map(
+        selection_size => 2
+    ) 
+	port map(
 		A,
 		B,
 		sel,

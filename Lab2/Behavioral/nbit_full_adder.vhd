@@ -2,17 +2,17 @@ library ieee;
 use ieee.std_logic_1164.all;
 
 entity nBitFullAdder is
-    generic(
-        size : integer
-    );
-    port(
-        A     : in std_logic_vector(size - 1 downto 0); 
-        B     : in std_logic_vector(size - 1 downto 0);  
-        cin   : in  std_logic;  
-        op    : in  std_logic; 
-        sum   : out std_logic_vector(size - 1 downto 0);  
-        cout  : out std_logic
-    );
+generic(
+    size : integer
+);
+port(
+    A     : in std_logic_vector(size - 1 downto 0); 
+    B     : in std_logic_vector(size - 1 downto 0);  
+    cin   : in  std_logic;  
+    op    : in  std_logic; 
+    F   : out std_logic_vector(size - 1 downto 0);  
+    cout  : out std_logic
+);
 end entity;
 
 architecture behavioral of nBitFullAdder is
@@ -30,7 +30,7 @@ begin
                 A(i),
                 B_modified(i),
                 cin_modified(i),
-                sum(i),
+                F(i),
                 cin_modified(i + 1)
             );
     end generate;

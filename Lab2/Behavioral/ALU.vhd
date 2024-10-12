@@ -15,6 +15,21 @@ begin
 
     -- * Instantiate each part of the ALU.
 
+    iPart_a : entity work.Part(behavioral_a)
+    generic map(
+        selection_size => 2
+    )
+    port map(
+		A,
+		B,
+		sel(1 downto 0),
+		cin,
+		part_a_out(7 downto 0),
+		part_a_out(8)
+	);	
+
+    -- *---------------------------------------------------------------------
+
 	iPart_b : entity work.Part(behavioral_b)
     generic map(
         selection_size => 2

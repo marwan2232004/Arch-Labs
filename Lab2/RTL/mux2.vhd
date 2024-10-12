@@ -2,6 +2,7 @@ library ieee;
 use ieee.std_logic_1164.all;
 
 -- * Mux entity with generic size for input and output.
+
 entity Mux2 is
 generic(
 	size : integer

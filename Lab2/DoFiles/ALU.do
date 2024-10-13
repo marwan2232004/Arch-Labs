@@ -4,9 +4,15 @@ set file_name alu
 
 # Compiling the project file
 
-vcom -work work -2002 -explicit -stats=none {./RTL/mux2.vhd}
+vcom -work work -2002 -explicit -stats=none {./RTL/mux.vhd}
+
+vcom -work work -2002 -explicit -stats=none {./RTL/full_adder.vhd}
 
 vcom -work work -2002 -explicit -stats=none {./Entities/part_entity.vhd}
+
+vcom -work work -2002 -explicit -stats=none {./Behavioral/nbit_full_adder.vhd}
+
+vcom -work work -2002 -explicit -stats=none {./Behavioral/part_a.vhd}
 
 vcom -work work -2002 -explicit -stats=none {./Behavioral/part_b.vhd}
 
@@ -44,9 +50,9 @@ radix signal sim:/${file_name}_tb/sel -binary
 
 #----------------------------------------------------------------------------------------------------------------
 
-# Run simulation for 300ns
+# Run simulation for 500ns
 
-run 300ns
+run 400ns
 
 #----------------------------------------------------------------------------------------------------------------
 

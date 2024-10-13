@@ -1,12 +1,14 @@
 # File name
 
-set file_name part_d
+set file_name part_a
 
 # Compiling the project files
 
-vcom -work work -2002 -explicit -stats=none {./RTL/mux.vhd}
+vcom -work work -2002 -explicit -stats=none {./RTL/full_adder.vhd}
 
 vcom -work work -2002 -explicit -stats=none {./Entities/part_entity.vhd}
+
+vcom -work work -2002 -explicit -stats=none {./Behavioral/nbit_full_adder.vhd}
 
 vcom -work work -2002 -explicit -stats=none "./Behavioral/${file_name}.vhd"
 
@@ -40,7 +42,7 @@ radix signal sim:/${file_name}_tb/sel -binary
 
 # Run simulation for 300ns
 
-run 100ns
+run 200ns
 
 #----------------------------------------------------------------------------------------------------------------
 

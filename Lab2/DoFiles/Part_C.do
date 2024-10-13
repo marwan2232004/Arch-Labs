@@ -4,7 +4,7 @@ set file_name part_c
 
 # Compiling the project files
 
-vcom -work work -2002 -explicit -stats=none {./RTL/mux2.vhd}
+vcom -work work -2002 -explicit -stats=none {./RTL/mux.vhd}
 
 vcom -work work -2002 -explicit -stats=none {./Entities/part_entity.vhd}
 

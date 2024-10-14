@@ -17,9 +17,10 @@ architecture sim_c of part_c_tb is
 	
 begin
 	
-	iPart_c : entity work.Part(behavioral_c)
+	iPart_c : entity work.part(behavioral_c)
 	generic map(
-        selection_size => 2
+        selection_size => 2,
+		input_size => 8
     )
 	port map(
 		A,

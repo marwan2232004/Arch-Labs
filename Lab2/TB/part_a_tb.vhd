@@ -18,9 +18,10 @@ architecture sim_b of part_a_tb is
 begin
 	
 	-- * Instantiate Part_A architecture.
-	iPart_a : entity work.Part(behavioral_a) 
+	iPart_a : entity work.part(behavioral_a) 
 	generic map(
-        selection_size => 2
+        selection_size => 2,
+		input_size => 8
     )
 	port map(
 		A,

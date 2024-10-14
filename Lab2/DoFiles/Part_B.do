@@ -6,7 +6,7 @@ set file_name part_b
 
 vcom -work work -2002 -explicit -stats=none {./RTL/mux.vhd}
 
-vcom -work work -2002 -explicit -stats=none {./Entities/part_entity.vhd}
+vcom -work work -2002 -explicit -stats=none {./Entities/part.vhd}
 
 vcom -work work -2002 -explicit -stats=none "./Behavioral/${file_name}.vhd"
 

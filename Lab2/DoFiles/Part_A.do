@@ -6,7 +6,7 @@ set file_name part_a
 
 vcom -work work -2002 -explicit -stats=none {./RTL/full_adder.vhd}
 
-vcom -work work -2002 -explicit -stats=none {./Entities/part_entity.vhd}
+vcom -work work -2002 -explicit -stats=none {./Entities/part.vhd}
 
 vcom -work work -2002 -explicit -stats=none {./Behavioral/nbit_full_adder.vhd}
 

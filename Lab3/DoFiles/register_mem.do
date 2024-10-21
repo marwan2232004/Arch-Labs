@@ -1,12 +1,10 @@
 # File name
 
-set file_name part_c
+set file_name register_mem
 
 # Compiling the project files
 
-vcom -work work -2002 -explicit -stats=none {./RTL/mux.vhd}
-
-vcom -work work -2002 -explicit -stats=none {./Entities/part.vhd}
+vcom -work work -2002 -explicit -stats=none {./Behavioral/dff.vhd}
 
 vcom -work work -2002 -explicit -stats=none "./Behavioral/${file_name}.vhd"
 
@@ -29,18 +27,27 @@ add wave *
 
 # Set the radix of the signal to the desired radix 
 
-set signals {A B cin output cout}
+set signals {clk rst we}
+foreach sig $signals {
+    radix signal sim:/${file_name}_tb/$sig -binary
+}
+
+set signals {read_addr1 read_addr2 write_addr}
+foreach sig $signals {
+    radix signal sim:/${file_name}_tb/$sig -unsigned
+}
+
+set signals {read_data1 read_data2 write_data}
 foreach sig $signals {
     radix signal sim:/${file_name}_tb/$sig -hexadecimal
 }
 
-radix signal sim:/${file_name}_tb/sel -binary
 
 #----------------------------------------------------------------------------------------------------------------
 
 # Run simulation for 300ns
 
-run 100ns
+run 200ns
 
 #----------------------------------------------------------------------------------------------------------------
 

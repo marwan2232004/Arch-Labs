@@ -8,8 +8,6 @@ vcom -work work -2002 -explicit -stats=none {./Entity/registers_entity.vhd}
 
 vcom -work work -2002 -explicit -stats=none {./RTL/dff.vhd}
 
-vcom -work work -2002 -explicit -stats=none {./Behavioral/dff_wrapper.vhd}
-
 vcom -work work -2002 -explicit -stats=none "./Behavioral/${file_name}.vhd"
 
 vcom -work work -2002 -explicit -stats=none "./TB/${file_name}_tb.vhd"

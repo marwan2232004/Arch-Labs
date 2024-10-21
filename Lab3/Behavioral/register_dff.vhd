@@ -4,27 +4,27 @@ USE IEEE.numeric_std.ALL;
 
 ARCHITECTURE behavioral_register_dff OF registers
     IS
-    SIGNAL we_int : INTEGER;
-    SIGNAL re1_int : INTEGER;
-    SIGNAL re2_int : INTEGER;
+    TYPE reg_array IS ARRAY (0 TO 7) OF STD_LOGIC_VECTOR(7 DOWNTO 0);
+    SIGNAL registers : reg_array := (OTHERS => (OTHERS => '0'));
+    SIGNAL reg_en : STD_LOGIC_VECTOR(0 TO 7) := (OTHERS => '0');
 BEGIN
-    we_int <= to_integer(unsigned(write_addr));
-    re1_int <= to_integer(unsigned(read_addr1));
-    re2_int <= to_integer(unsigned(read_addr2));
-    
+    PROCESS (clk, rst)
+    BEGIN            
+        reg_en <= (OTHERS => '0');
+        reg_en(to_integer(unsigned(write_addr))) <= we;
+    END PROCESS;
+
     gen_dffs : FOR i IN 0 TO 7 GENERATE
-        iDff : ENTITY work.dff_wrapper(behavioral)
+        iDff : ENTITY work.dff(rtl)
             GENERIC MAP(n => 8)
             PORT MAP(
-                idx => i,
-                we => we_int,
-                re1 => re1_int,
-                re2 => re2_int,
                 clk => clk,
                 rst => rst,
+                we => reg_en(i),
                 d => write_data,
-                q1 => read_data1,
-                q2 => read_data2
+                q => registers(i)
             );
     END GENERATE;
+    read_data1 <= registers(to_integer(unsigned(read_addr1)));
+    read_data2 <= registers(to_integer(unsigned(read_addr2)));
 END ARCHITECTURE;

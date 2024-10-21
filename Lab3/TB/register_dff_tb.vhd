@@ -1,10 +1,10 @@
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 
-ENTITY register_mem_tb IS
+ENTITY register_dff_tb IS
 END ENTITY;
 
-ARCHITECTURE sim OF register_mem_tb IS
+ARCHITECTURE sim OF register_dff_tb IS
     SIGNAL clk : STD_LOGIC;
     SIGNAL rst : STD_LOGIC;
     SIGNAL we : STD_LOGIC;
@@ -16,7 +16,7 @@ ARCHITECTURE sim OF register_mem_tb IS
     SIGNAL read_data2 : STD_LOGIC_VECTOR(8 - 1 DOWNTO 0);
 BEGIN
 
-    iRegister : ENTITY work.registers(behavioral_register_mem)
+    iRegister : ENTITY work.registers(behavioral_register_dff)
         GENERIC MAP(
             data_size => 8,
             address_size => 3

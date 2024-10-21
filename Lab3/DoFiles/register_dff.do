@@ -1,10 +1,14 @@
 # File name
 
-set file_name register_mem
+set file_name register_dff
 
 # Compiling the project files
 
 vcom -work work -2002 -explicit -stats=none {./Entity/registers_entity.vhd}
+
+vcom -work work -2002 -explicit -stats=none {./RTL/dff.vhd}
+
+vcom -work work -2002 -explicit -stats=none {./Behavioral/dff_wrapper.vhd}
 
 vcom -work work -2002 -explicit -stats=none "./Behavioral/${file_name}.vhd"
 

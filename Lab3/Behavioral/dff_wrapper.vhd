@@ -22,23 +22,26 @@ ARCHITECTURE behavioral OF dff_wrapper
     SIGNAL modified_q : STD_LOGIC_VECTOR(n - 1 DOWNTO 0) := (OTHERS => '0');
     SIGNAL write_en : STD_LOGIC;
 BEGIN
-    write_en = '1' WHEN (we = idx) ELSE
-    '0';
-
+    write_en <= '1' WHEN (we = idx) ELSE
+        '0';
+    
     iDff : ENTITY work.dff(rtl)
         GENERIC MAP(n => n)
         PORT MAP(
-            clk => clk,
-            rst => rst,
-            we => we,
-            d => d,
-            q => modified_q
+            clk,
+            rst,
+            write_en,
+            d,
+            modified_q
         );
 
-    IF (re1 = idx) THEN
-        q1 <= modified_q;
-    ELSIF (re2 = idx) THEN
-        q2 <= modified_q;
-    END IF;
+    PROCESS (re1, re2, idx, modified_q)
+    BEGIN
+        IF (re1 = idx) THEN
+            q1 <= modified_q;
+        ELSIF (re2 = idx) THEN
+            q2 <= modified_q;
+        END IF;
+    END PROCESS;
 
 END ARCHITECTURE;

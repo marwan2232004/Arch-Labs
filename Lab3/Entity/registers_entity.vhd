@@ -1,4 +1,9 @@
+library IEEE;
+use IEEE.std_logic_1164.all;
+use IEEE.numeric_std.all;
+
 ENTITY registers IS
+
     GENERIC (
         data_size : INTEGER := 8;
         address_size : INTEGER := 3

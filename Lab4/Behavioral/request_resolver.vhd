@@ -9,16 +9,18 @@ ENTITY request_resolver IS
     PORT (
         clk : IN STD_LOGIC;
         rst : IN STD_LOGIC;
-        requests : IN STD_LOGIC_VECTOR(floor_num - 1 DOWNTO 0);
-        request : OUT INTEGER;
+        requests : IN STD_LOGIC_VECTOR(0 TO floor_num - 1);
         current_floor : IN INTEGER;
+        prev_request : IN INTEGER;
         prev_dir : IN INTEGER;
-        state : IN INTEGER
+        state : IN INTEGER;
+        request : OUT INTEGER
     );
 END ENTITY;
 
+-- prev_dir = 0: first time, 1: down, 2: up
+
 ARCHITECTURE behavioral OF request_resolver IS
-    SIGNAL stop_counter : INTEGER := 0;
 BEGIN
     PROCESS (clk, rst)
         VARIABLE request_set : INTEGER := 0;
@@ -30,47 +32,46 @@ BEGIN
                 FOR i IN current_floor TO floor_num - 1 LOOP
                     IF requests(i) = '1' THEN
                         request <= i;
-                        stop_counter <= 0;
                         request_set := 1;
-                        break;
                     END IF;
+                    EXIT WHEN request_set = 1;
                 END LOOP;
             ELSE
-                IF state = 0 AND stop_counter < 2 THEN
-                    request <= current_floor;
-                    stop_counter <= stop_counter + 1;
-                ELSIF prev_dir = 1 THEN
-                    FOR i IN current_floor DOWNTO 0 LOOP
-                        IF requests(i) = '1' THEN
-                            request <= i;
-                            stop_counter <= 0;
-                            request_set := 1;
-                            break;
-                        END IF;
-                    END LOOP;
-                    FOR i IN current_floor TO floor_num - 1 LOOP
-                        IF requests(i) = '1' AND request_set = 0 THEN
-                            request <= i;
-                            stop_counter <= 0;
-                            break;
-                        END IF;
-                    END LOOP;
-                ELSE
-                    FOR i IN current_floor TO floor_num - 1 LOOP
-                        IF requests(i) = '1' THEN
-                            request <= i;
-                            stop_counter <= 0;
-                            request_set := 1;
-                            break;
-                        END IF;
-                    END LOOP;
-                    FOR i IN current_floor DOWNTO 0 LOOP
-                        IF requests(i) = '1' AND request_set = 0 THEN
-                            request <= i;
-                            stop_counter <= 0;
-                            break;
-                        END IF;
-                    END LOOP;
+                request_set := 0;
+                IF state = 0 AND requests(prev_request) = '1' THEN
+                    request <= prev_request;
+                ELSIF current_floor = prev_request THEN
+                    IF prev_dir = 1 THEN
+                        FOR i IN current_floor DOWNTO 0 LOOP
+                            IF requests(i) = '1' THEN
+                                request <= i;
+                                request_set := 1;
+                            END IF;
+                            EXIT WHEN request_set = 1;
+                        END LOOP;
+                        FOR i IN current_floor TO floor_num - 1 LOOP
+                            IF requests(i) = '1' AND request_set = 0 THEN
+                                request <= i;
+                                request_set := 1;
+                            END IF;
+                            EXIT WHEN request_set = 1;
+                        END LOOP;
+                    ELSE
+                        FOR i IN current_floor TO floor_num - 1 LOOP
+                            IF requests(i) = '1' THEN
+                                request <= i;
+                                request_set := 1;
+                            END IF;
+                            EXIT WHEN request_set = 1;
+                        END LOOP;
+                        FOR i IN current_floor DOWNTO 0 LOOP
+                            IF requests(i) = '1' AND request_set = 0 THEN
+                                request <= i;
+                                request_set := 1;
+                            END IF;
+                            EXIT WHEN request_set = 1;
+                        END LOOP;
+                    END IF;
                 END IF;
             END IF;
         END IF;

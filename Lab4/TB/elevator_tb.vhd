@@ -55,10 +55,17 @@ begin
         
         -- wait for 10 ns
         wait for 10 ns;
-        requests <= "0000010000";
-        wait for 900 ns;
-        requests <= "1000000010";
-
+        requests(7) <='1';
+        wait for 200 ns;
+        requests(7) <='0';
+        requests(3) <='1';
+        wait for 200 ns;
+        requests(3) <='0';
+        requests(1) <='1';
+        wait for 200 ns;
+        requests(1) <='0';
+        wait for 3500 ns;
+        requests(5) <='1';
         wait;
     end process;
 

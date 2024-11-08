@@ -102,12 +102,11 @@ BEGIN
         VARIABLE temp_requests : STD_LOGIC_VECTOR(0 TO floor_num - 1) := (OTHERS => '0');
         VARIABLE mask : STD_LOGIC_VECTOR(0 TO floor_num - 1) := (OTHERS => '1');
     BEGIN
-
+        mask := (OTHERS => '1');
         IF (next_floor_reg = current_floor_reg AND prev_dir > 0) THEN
-            -- requests_reg(5) <= '0';
-            temp_requests := requests_reg OR requests;
             mask(current_floor_reg) := '0';
-            requests_reg <= temp_requests AND mask;
+            temp_requests := requests_reg AND mask;
+            requests_reg <= temp_requests OR requests;
         ELSE
             requests_reg <= requests_reg OR requests;
         END IF;

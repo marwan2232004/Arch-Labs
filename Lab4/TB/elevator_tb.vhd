@@ -48,22 +48,44 @@ BEGIN
     BEGIN
         -- hold reset state for 20 ns.
         rst <= '1';
-        WAIT FOR CLK_PERIOD;
+        WAIT FOR 200 ms;
         rst <= '0';
-
-        -- wait for 10 ns
+        wait for 800 ms;
         requests(7) <= '1';
-        WAIT FOR 1 SEC;
+        WAIT FOR 10 ms;
         requests(7) <= '0';
+        WAIT FOR 1 sec;
         requests(3) <= '1';
-        WAIT FOR 1 SEC;
+        WAIT FOR 10 ms;
         requests(3) <= '0';
-        requests(1) <= '1';
-        WAIT FOR 1 SEC;
-        requests(1) <= '0';
-        WAIT FOR 35 SEC;
+        WAIT FOR 2 sec;
 
-        requests(5) <= '1';
+        requests(1) <= '1';
+        WAIT FOR 10 ms;
+        requests(1) <= '0';
+        WAIT FOR 1 sec;
+
+        -- Wait for door to close
+        WAIT FOR 1 sec;
+
+        -- Wait for elevator to reach the 7th floor
+        WAIT FOR 5 sec;
+
+        -- Wait for door to close
+        WAIT FOR 2 sec;
+
+        WAIT FOR 1 sec;
+
+        -- Wait for elevator to reach the 1st floor
+        WAIT FOR 6 sec;
+
+        -- Wait for door to close
+        WAIT FOR 2 sec;
+
+        WAIT FOR 1 sec;
+        -- End simulation
+        WAIT FOR 6 sec;
+
         WAIT;
     END PROCESS;
 

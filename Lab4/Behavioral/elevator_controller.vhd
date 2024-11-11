@@ -54,7 +54,6 @@ BEGIN
             floor_num => floor_num
         )
         PORT MAP(
-            clk => clk_reg,
             rst => rst,
             requests => requests_reg,
             prev_request => next_floor_intermediate,
@@ -63,6 +62,7 @@ BEGIN
             state => state_reg,
             request => next_floor_reg
         );
+        
     next_floor_intermediate <= next_floor_reg;
 
     i_unit_control : ENTITY work.unit_control(behavioral)
@@ -79,7 +79,7 @@ BEGIN
             new_state => state_reg,
             new_dir => prev_dir_intermediate
         );
-
+    -- To update the direction with the new direction
     PROCESS (prev_dir_intermediate)
     BEGIN
         IF prev_dir_intermediate < 0 OR prev_dir_intermediate > 2 THEN

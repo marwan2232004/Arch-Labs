@@ -31,7 +31,7 @@ ARCHITECTURE behavioral OF elevator_controller IS
     SIGNAL prev_dir_intermediate : INTEGER := 0;
     SIGNAL counter : INTEGER := 0;
     SIGNAL clk_reg : STD_LOGIC := '0';
-    CONSTANT CLKFREQ : INTEGER := 10;
+    CONSTANT CLKFREQ : INTEGER := 50000000;
     CONSTANT DIVISOR : INTEGER := CLKFREQ / 2;
 BEGIN
     PROCESS (clk, rst)

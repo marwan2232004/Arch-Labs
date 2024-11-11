@@ -1,72 +1,70 @@
-library ieee;
-use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+USE ieee.numeric_std.ALL;
 
-entity elevator_tb is
-end entity elevator_tb;
+ENTITY elevator_tb IS
+END ENTITY elevator_tb;
 
-architecture behavior of elevator_tb is
-
-
+ARCHITECTURE behavior OF elevator_tb IS
     -- Signals for the testbench
-    signal clk         : std_logic := '0';
-    signal rst       : std_logic := '0';
-    signal requests   : std_logic_vector(0 to 9) := (others => '0');
-    signal clk_out    : std_logic;
-    signal current_floor : integer;
-    signal next_floor : integer;
-    signal state : integer;
+    SIGNAL clk : STD_LOGIC := '0';
+    SIGNAL rst : STD_LOGIC := '0';
+    SIGNAL requests : STD_LOGIC_VECTOR(0 TO 9) := (OTHERS => '0');
+    SIGNAL clk_out : STD_LOGIC;
+    SIGNAL current_floor : INTEGER;
+    SIGNAL next_floor : INTEGER;
+    SIGNAL state : INTEGER;
 
     -- Clock period definition
-    constant clk_period : time := 10 ns;
+    CONSTANT clk_period : TIME := 20 ns;
 
-begin
+BEGIN
 
     iElevator : ENTITY work.elevator_controller(behavioral)
-    GENERIC MAP(
-        floor_num => 10
-    )
-    PORT MAP(
-        clk,
-        rst,
-        requests,
-        clk_out,
-        current_floor,
-        next_floor,
-        state
-    );
+        GENERIC MAP(
+            floor_num => 10
+        )
+        PORT MAP(
+            clk,
+            rst,
+            requests,
+            clk_out,
+            current_floor,
+            next_floor,
+            state
+        );
 
     -- Clock process definitions
-    clk_process :process
-    begin
+    clk_process : PROCESS
+    BEGIN
         clk <= '0';
-        wait for clk_period/2;
+        WAIT FOR clk_period/2;
         clk <= '1';
-        wait for clk_period/2;
-    end process;
+        WAIT FOR clk_period/2;
+    END PROCESS;
 
     -- Stimulus process
-    stim_proc: process
-    begin
+    stim_proc : PROCESS
+    BEGIN
         -- hold reset state for 20 ns.
         rst <= '1';
-        wait for 20 ns;  
+        WAIT FOR CLK_PERIOD;
         rst <= '0';
-        
-        -- wait for 10 ns
-        wait for 10 ns;
-        requests(7) <='1';
-        wait for 200 ns;
-        requests(7) <='0';
-        requests(3) <='1';
-        wait for 200 ns;
-        requests(3) <='0';
-        requests(1) <='1';
-        wait for 200 ns;
-        requests(1) <='0';
-        wait for 3500 ns;
-        requests(5) <='1';
-        wait;
-    end process;
 
-end architecture behavior;
+        -- wait for 10 ns
+        requests(7) <= '1';
+        WAIT FOR 1 SEC;
+        requests(7) <= '0';
+        requests(3) <= '1';
+        WAIT FOR 1 SEC;
+        requests(3) <= '0';
+        requests(1) <= '1';
+        WAIT FOR 1 SEC;
+        requests(1) <= '0';
+        WAIT FOR 35 SEC;
+
+        requests(5) <= '1';
+        WAIT;
+    END PROCESS;
+
+END ARCHITECTURE behavior;

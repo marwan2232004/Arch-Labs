@@ -50,7 +50,7 @@ BEGIN
         rst <= '1';
         WAIT FOR 200 ms;
         rst <= '0';
-        wait for 800 ms;
+        WAIT FOR 800 ms;
         requests(7) <= '1';
         WAIT FOR 10 ms;
         requests(7) <= '0';

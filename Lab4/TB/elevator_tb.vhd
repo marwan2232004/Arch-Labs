@@ -14,6 +14,10 @@ ARCHITECTURE behavior OF elevator_tb IS
     SIGNAL current_floor : INTEGER;
     SIGNAL next_floor : INTEGER;
     SIGNAL state : INTEGER;
+    SIGNAL seg_out :  STD_LOGIC_VECTOR(6 DOWNTO 0);
+    SIGNAL move_up :  STD_LOGIC;
+    SIGNAL move_down :  STD_LOGIC;
+    SIGNAL door_open :  STD_LOGIC;
 
     -- Clock period definition
     CONSTANT clk_period : TIME := 20 ns;
@@ -31,7 +35,11 @@ BEGIN
             clk_out,
             current_floor,
             next_floor,
-            state
+            state,
+            seg_out,
+            move_up,
+            move_down,
+            door_open
         );
 
     -- Clock process definitions

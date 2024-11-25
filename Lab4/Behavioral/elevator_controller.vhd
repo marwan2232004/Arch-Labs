@@ -13,7 +13,11 @@ ENTITY elevator_controller IS
         clk_out : OUT STD_LOGIC;
         current_floor : OUT INTEGER;
         next_floor : OUT INTEGER;
-        state : OUT INTEGER
+        state : OUT INTEGER;
+        seg_out : OUT STD_LOGIC_VECTOR(6 DOWNTO 0);
+        move_up : OUT STD_LOGIC;
+        move_down : OUT STD_LOGIC;
+        door_open : OUT STD_LOGIC
     );
 
 END ENTITY;
@@ -62,7 +66,7 @@ BEGIN
             state => state_reg,
             request => next_floor_reg
         );
-        
+
     next_floor_intermediate <= next_floor_reg;
 
     i_unit_control : ENTITY work.unit_control(behavioral)
@@ -111,6 +115,45 @@ BEGIN
             requests_reg <= requests_reg OR requests;
         END IF;
 
+    END PROCESS;
+
+    PROCESS (current_floor_reg)
+    BEGIN
+        CASE current_floor_reg IS
+            WHEN 0 => seg_out <= "1000000";
+            WHEN 1 => seg_out <= "1111001";
+            WHEN 2 => seg_out <= "0100100";
+            WHEN 3 => seg_out <= "0110000";
+            WHEN 4 => seg_out <= "0011001";
+            WHEN 5 => seg_out <= "0010010";
+            WHEN 6 => seg_out <= "0000010";
+            WHEN 7 => seg_out <= "1111000";
+            WHEN 8 => seg_out <= "0000000";
+            WHEN 9 => seg_out <= "0010000";
+            WHEN OTHERS => seg_out <= "1111111"; -- All segments off for invalid input
+        END CASE;
+    END PROCESS;
+
+    PROCESS (state_reg)
+    BEGIN
+        CASE state_reg IS
+            WHEN 0 =>
+                door_open <= '1';
+                move_up <= '0';
+                move_down <= '0';
+            WHEN 1 =>
+                door_open <= '0';
+                move_up <= '0';
+                move_down <= '1';
+            WHEN 2 =>
+                door_open <= '0';
+                move_up <= '1';
+                move_down <= '0';
+            WHEN OTHERS =>
+                door_open <= '0';
+                move_up <= '0';
+                move_down <= '0';
+        END CASE;
     END PROCESS;
 
     current_floor <= current_floor_reg;

@@ -32,7 +32,7 @@ add wave *
 
 # Set the radix of the signal to the desired radix 
 
-set signals {clk rst clk_out requests}
+set signals {clk rst clk_out requests move_up move_down door_open seg_out}
 foreach sig $signals {
     radix signal sim:/${file_name}_tb/$sig -binary
 }
